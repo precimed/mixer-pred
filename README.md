@@ -119,7 +119,7 @@ ${MIXER_PY} split_sumstats --trait1-file ${SUMSTATS_FOLDER}/${SUMSTATS_FILE}.sum
 ```
 
 ## Step 4: Bivariate MiXeR-Pred Run 
-After the univariate runs are completed for your phenotypes of interest, bivariate analyses can be run for the phenotype pairs of interest. An example script to run the bivariate analysis is bellow (again, please modify where necessary). This script is provided in this repository at scripts/mixer_pred_bivar.job and here is an example of how to batch this script for the pair of sumstats files named ``BIP.sumstats.gz`` and ``SCZ.sumstats.gz``: ``sbatch mixer_pred_univar.job BIP SCZ``
+After the univariate runs are completed for your phenotypes of interest, bivariate analyses can be run for the phenotype pairs of interest. An example script to run the bivariate analysis is bellow (again, please modify where necessary). This script is provided in this repository at scripts/mixer_pred_bivar.job and here is an example of how to batch this script for the pair of sumstats files named ``BIP.sumstats.gz`` and ``SCZ.sumstats.gz``: ``sbatch mixer_pred_bivar.job BIP SCZ``
 
 ```
 #!/bin/bash
