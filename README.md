@@ -77,7 +77,7 @@ mkdir slurm
 
 export SUMSTATS_FILE=$1
 
-# PLSA analysis (new MiXeR model)
+# PLSA analysis
   # remember that the sumstats should be split per chromosome, as follows
 ${MIXER_PY} split_sumstats --trait1-file ${SUMSTATS_FOLDER}/${SUMSTATS_FILE}.sumstats.gz --out ${SUMSTATS_FOLDER}/${SUMSTATS_FILE}.chr@.sumstats.gz
 
@@ -173,7 +173,7 @@ export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices
 
 export EXTRA_FLAGS_B="--exclude-ranges MHC --z1max 9.336 --z2max 9.336"
 
-# PLSA analysis (new MiXeR model)
+# PLSA analysis 
   echo -e '\n==== PLSA FIT2 ==========================================================================\n'
   ${MIXER_PY} fit2 ${COMMON_FLAGS} \
           --trait1-file ${SUMSTATS_FOLDER}/${SUMSTATS_FILE}.sumstats.gz \
@@ -201,9 +201,9 @@ export EXTRA_FLAGS_B="--exclude-ranges MHC --z1max 9.336 --z2max 9.336"
 ```
 
 ## Step 5: Generate MiXeR-Pred Parameters for Polygenic Prediction 
-After the bivariate runs are complete parameters for MiXeR-Pred must be generated. To do so you can use the generate_mixer_pred_files.job script to batche the generate_mixer_pred_files.R script. Both scripts can be found in this repository in the scripts directory. R must be pre-installed on your system (see https://cran.r-project.org/ for details). While the scripts attempt to install all required R libraries, for ease of use, you may wish to pre-insall the following libraries:  ``data.table``, ``tidyverse`` and ``argparser``. In addition, a path to a plink (v1.9) binary file is needed. You can download plink from [here](https://www.cog-genomics.org/plink/). Note, MiXeR-Pred assumes the target sample you'd like to generate polygenic scores for has genetic data stored in plink binary format (.bed, .bim, .fam).
+After the bivariate runs are complete parameters for MiXeR-Pred must be generated. To do so you can use the ``generate_mixer_pred_files.job`` script to batch the ``generate_mixer_pred_files.R`` script. Both scripts can be found in this repository in the scripts directory. R must be pre-installed on your system (see https://cran.r-project.org/ for details). While the scripts attempt to install all required R libraries, for ease of use, you may wish to pre-insall the following libraries:  ``data.table``, ``tidyverse`` and ``argparser``. In addition, a path to a ``PLINK (v1.9)`` binary executable is needed. You can download PLINK from [here](https://www.cog-genomics.org/plink/). Note, MiXeR-Pred assumes the target sample you'd like to generate polygenic scores for has genetic data stored in PLINK binary format (.bed, .bim, .fam).
 
-The generate_mixer_pred_files.job file passes several arguments to the R script. The follwing arguments will need to be modified:
+The ``generate_mixer_pred_files.job`` file passes several arguments to the R script. The follwing arguments will need to be modified:
 * ``--ref`` - the path to the reference directory with the file prefix used for each chromosome
 * ``--indir`` - the directory which contains all outputs from the bivariate run (Step 4)
 * ``--outdir`` - the directory to place all outputs from this script
@@ -212,9 +212,9 @@ The generate_mixer_pred_files.job file passes several arguments to the R script.
 * ``--bfile`` - the path and file prefix for the reference to be used in the clumping procedure (a 1000 genomes european reference file can be downloaded from [here](https://ctg.cncr.nl/software/magma))
 * ``--snp-thresholds`` - the thresholds for top number of variants (in thousands) to be used in estimating the polygenic risk scores
 
-NOTE: the ``--snps-file-prefix`` in generate_mixer_pred_files.job does not need to be modified
+NOTE: the ``--snps-file-prefix`` in ``generate_mixer_pred_files.job`` does not need to be modified
 
-Below is an example generate_mixer_pred_files.job script which can be batched using the following command given the example pair of phenotypes BIP and SCZ used previously ``sbatch generate_mixer_pred_files.job BIP_vs_SCZ``
+Below is an example ``generate_mixer_pred_files.job`` script which can be batched using the following command given the example pair of phenotypes BIP and SCZ used previously ``sbatch generate_mixer_pred_files.job BIP_vs_SCZ``
 
 ```
 #!/bin/bash
@@ -243,13 +243,13 @@ Rscript Generate_MiXeR_Pred_files.R \
 
 ```
 
-The Generate_MiXeR_Pred_files.R script will produce the following outputs given the example "BIP_vs_SCZ" trait pairing:
+The following outputs will be produced given the example "BIP_vs_SCZ" trait pairing:
 * ``BIP_vs_SCZ_mixer_estimates.gz`` - a file with MiXeR-Pred estimates for all variants in the reference as well as both input summary statistics
-* ``BIP_vs_SCZ_mixer_estimates_target_filtered.gz`` - a file with MiXeR-Pred estimates for all BIP_vs_SCZ_mixer_estimates.gz file also found in the target sampe .bim file
+* ``BIP_vs_SCZ_mixer_estimates_target_filtered.gz`` - a file with MiXeR-Pred estimates for all ``BIP_vs_SCZ_mixer_estimates.gz`` file also found in the target sampe .bim file
 * ``BIP_vs_SCZ_mixer_target_filtered.clumped`` - independent significant variants used for polygenic score analysis
 * ``BIP_vs_SCZ_mixer_target_filtered.log`` and BIP_vs_SCZ_mixer_target_filtered.nosex - standard output files produced from the plink clumping step.
-* ``BIP_vs_SCZ_clump_topSNPs`` - a directory with all files used to generate polygenic risk scores at the pre-selected number of top variants (set by --snp-thresholds in the Generate_MiXeR_Pred_files.job script)
-  * these files are named BIP_vs_SCZ_top_(n)K.mixer.gz, where "(n)" represents the number of included top independent significant variants in the thousands.
+* ``BIP_vs_SCZ_clump_topSNPs`` - a directory with all files used to generate polygenic risk scores at the pre-selected number of top variants
+  * these files are named ``BIP_vs_SCZ_top_(n)K.mixer.gz``, where "(n)" represents the number of included top independent significant variants in the thousands.
 
 All the gzipped output files will have the following columns:
 * ``RSID``- a marker name for each variant
@@ -267,7 +267,7 @@ NOTE: polygenic scores are generated using ED1 (or ED2) as weights and expED1 (o
 ## Step 6: Generate Polygenic Scores
 The output files found in the "*_clump_topSNPs" directory can be used to generate polygenic scores. In the MiXeR-Pred manuscript (link coming soon), we use PRSice2 to generate polygenic scores. PRSice2 can be downloaded [here](https://choishingwan.github.io/PRSice/). Alternatively plink can be used to generate polygenic scores using the ``--score`` command (https://www.cog-genomics.org/plink/1.9/score).
 
-An example script to generate polygenic scores at multipl thresholds using PRSice2 is below. NOTE: --stat ED1 --pvalue expED1 sets the weights and thresholds, respectively.
+An example script to generate polygenic scores at multiple thresholds using PRSice2 is below. NOTE: ``--stat ED1`` ``--pvalue expED1`` sets the MixeR-Pred weights and thresholds, respectively.
 ```
 #!/bin/bash
 #SBATCH --job-name=Pred
