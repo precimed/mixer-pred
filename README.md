@@ -267,7 +267,7 @@ NOTE: polygenic scores are generated using ED1 (or ED2) as weights and expED1 (o
 ## Step 6: Generate Polygenic Scores
 The output files found in the "*_clump_topSNPs" directory can be used to generate polygenic scores. In the MiXeR-Pred manuscript (link coming soon), we use PRSice2 to generate polygenic scores. PRSice2 can be downloaded [here](https://choishingwan.github.io/PRSice/). Alternatively plink can be used to generate polygenic scores using the ``--score`` command (https://www.cog-genomics.org/plink/1.9/score).
 
-An example script to generate polygenic scores at multiple thresholds using PRSice2 is below. NOTE: ``--stat ED1`` ``--pvalue expED1`` sets the MixeR-Pred weights and thresholds, respectively.
+An example script to generate polygenic scores at multiple thresholds using PRSice2 is below. NOTE: ``--stat ED1`` ``--pvalue expED1`` sets the MiXeR-Pred weights and thresholds, respectively.
 ```
 #!/bin/bash
 #SBATCH --job-name=Pred
