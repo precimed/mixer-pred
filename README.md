@@ -248,8 +248,8 @@ The Generate_MiXeR_Pred_files.R script will produce the following outputs given 
 * ``BIP_vs_SCZ_mixer_estimates_target_filtered.gz`` - a file with MiXeR-Pred estimates for all BIP_vs_SCZ_mixer_estimates.gz file also found in the target sampe .bim file
 * ``BIP_vs_SCZ_mixer_target_filtered.clumped`` - independent significant variants used for polygenic score analysis
 * ``BIP_vs_SCZ_mixer_target_filtered.log`` and BIP_vs_SCZ_mixer_target_filtered.nosex - standard output files produced from the plink clumping step.
-* ``BIP_vs_SCZ_clump_topSNPs`` - a directory with all files used to generate polygenic risk scores at the pre-select thresholds (set by --snp-thresholds in the Generate_MiXeR_Pred_files.job script)
-  * these files are named BIP_vs_SCZ_top_(n)K.mixer.gz, where "(n)" represents the number of top independent significant variants included in the file divided by 1000.
+* ``BIP_vs_SCZ_clump_topSNPs`` - a directory with all files used to generate polygenic risk scores at the pre-selected number of top variants (set by --snp-thresholds in the Generate_MiXeR_Pred_files.job script)
+  * these files are named BIP_vs_SCZ_top_(n)K.mixer.gz, where "(n)" represents the number of included top independent significant variants in the thousands.
 
 All the gzipped output files will have the following columns:
 * ``RSID``- a marker name for each variant
@@ -259,8 +259,8 @@ All the gzipped output files will have the following columns:
 * ``A2`` - the non-effect/alternative allele
 * ``ED1`` - expected delta for the primary phenotype given the secondaty phenotype (i.e., weight used for the the first listed phenotype (BIP))
 * ``ED2`` - expected delta for the secondary phenotype given the primary phenotype (i.e., weight used for the the second listed phenotype (SCZ))
-* ``expED1`` - expoenetiated negative of ED1 (i.e., thresholding value used for the the first listed phenotype (BIP))
-* ``expED2`` - expoenetiated negative of ED2 (i.e., thresholding value used for the the second listed phenotype (SCZ))
+* ``expED1`` - exponentiated negative of ED1 (i.e., thresholding value used for the the first listed phenotype (BIP))
+* ``expED2`` - exponentiated negative of ED2 (i.e., thresholding value used for the the second listed phenotype (SCZ))
 
 NOTE: polygenic scores are generated using ED1 (or ED2) as weights and expED1 (or expED2) as thresholds similar to using beta values as weights and p-values as thresholds. This means weights and thresholds are generated for both phenotypes in a given pair of traits.
 
