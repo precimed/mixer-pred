@@ -244,11 +244,11 @@ Rscript Generate_MiXeR_Pred_files.R \
 ```
 
 The Generate_MiXeR_Pred_files.R script will produce the following outputs given the example "BIP_vs_SCZ" trait pairing:
-* BIP_vs_SCZ_mixer_estimates.gz - a file with MiXeR-Pred estimates for all variants in the reference as well as both input summary statistics
-* BIP_vs_SCZ_mixer_estimates_target_filtered.gz - a file with MiXeR-Pred estimates for all BIP_vs_SCZ_mixer_estimates.gz file also found in the target sampe .bim file
-* BIP_vs_SCZ_mixer_target_filtered.clumped - independent significant variants used for polygenic score analysis
-* BIP_vs_SCZ_mixer_target_filtered.log and BIP_vs_SCZ_mixer_target_filtered.nosex - standard output files produced from the plink clumping step.
-* BIP_vs_SCZ_clump_topSNPs - a directory with all files used to generate polygenic risk scores at the pre-select thresholds (set by --snp-thresholds in the Generate_MiXeR_Pred_files.job script)
+* ``BIP_vs_SCZ_mixer_estimates.gz`` - a file with MiXeR-Pred estimates for all variants in the reference as well as both input summary statistics
+* ``BIP_vs_SCZ_mixer_estimates_target_filtered.gz`` - a file with MiXeR-Pred estimates for all BIP_vs_SCZ_mixer_estimates.gz file also found in the target sampe .bim file
+* ``BIP_vs_SCZ_mixer_target_filtered.clumped`` - independent significant variants used for polygenic score analysis
+* ``BIP_vs_SCZ_mixer_target_filtered.log`` and BIP_vs_SCZ_mixer_target_filtered.nosex - standard output files produced from the plink clumping step.
+* ``BIP_vs_SCZ_clump_topSNPs`` - a directory with all files used to generate polygenic risk scores at the pre-select thresholds (set by --snp-thresholds in the Generate_MiXeR_Pred_files.job script)
   * these files are named BIP_vs_SCZ_top_(n)K.mixer.gz, where "(n)" represents the number of top independent significant variants included in the file divided by 1000.
 
 All the gzipped output files will have the following columns:
