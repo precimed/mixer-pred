@@ -220,7 +220,7 @@ The generate_mixer_pred_files.job file passes several arguments to the R script.
 
 NOTE: the ``--snps-file-prefix`` in generate_mixer_pred_files.job does not need to be modified
 
-Below is an example generate_mixer_pred_files.job script which can be batched using the following command given the example pair of phenotypes BIP and SCZ used previously ``sbatch Generate_MiXeR_Pred_files.job BIP_vs_SCZ``
+Below is an example generate_mixer_pred_files.job script which can be batched using the following command given the example pair of phenotypes BIP and SCZ used previously ``sbatch generate_mixer_pred_files.job BIP_vs_SCZ``
 
 ```
 #!/bin/bash
