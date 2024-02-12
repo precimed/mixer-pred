@@ -1,0 +1,52 @@
+#!/bin/bash
+#SBATCH --job-name=Pred
+#SBATCH --account=p697_norment_dev
+#SBATCH --time=5:00:00
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=8000M
+
+# load R module
+module load R/4.0.0-foss-2020a
+
+# Top variant thresholds to use for PRS
+declare -a Nmax_arr2=(1 2 5 10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 210 220 230 240 250 260 270 280 290 300)
+for Nmax in "${Nmax_arr2[@]}"
+do
+# define base files - output files from Generate_MiXeR_Pred_files.job script
+INP_BASE=/cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/MiXeR/MiXeR_Pred_out/BIP_vs_SCZ_clump_topSNPs/BIP_vs_SCZ_top_${Nmax}K.mixer.gz
+
+  # Path to phenotype file used for PRSice2
+	INP_PHENO=/cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/TOP_psych_DIAGnSYMP_BIPvsCTRL_20220127.pheno
+  # Pathe to covariate file used for PRSice2
+	INP_COV=/cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/TOP_psych_DIAGnSYMP_20211115.cov
+  # Path to target sample plink files with prefix for binary files (.bed, .bim. .fam files)
+	INP_TARGET=/cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/TOP_BIPSCZvsCTRL_merged_EUR
+	#Output file prefix
+	flag=/cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/mixer_prs/BIP_vs_SCZ_${Nmax}K
+						
+		#===ANALYZING===
+		if [ -f "$INP_BASE" ]; 
+		then
+      # Standard commands to run PRSice2
+			Rscript /cluster/projects/p697/users/nadinepa/Tools/PRSice_linux/PRSice.R \
+				--prsice /cluster/projects/p697/users/nadinepa/Tools/PRSice_linux/PRSice_linux \
+				--dir /cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/mixer_prs \
+				--all-score \
+				--model add \
+				--no-clump \
+				--bar-levels 1 --fastscore \
+				--base $INP_BASE\
+				--snp RSID --A1 A1 --A2 A2 \
+				--stat ED1 --pvalue expED1 --beta \
+				--target $INP_TARGET \
+				--pheno-file $INP_PHENO \
+				--pheno-col "psych"\
+				--binary-target "T" \
+				--cov-file $INP_COV \
+				--cov-col sex,genetics_batch,age,PC1,PC2,PC3,PC4,PC5,PC6,PC7,PC8,PC9,PC10,PC11,PC12,PC13,PC14,PC15,PC16,PC17,PC18,PC19,PC20 \
+				--cov-factor sex,genetics_batch \
+				--out ${flag}
+		else
+			echo "Your Base $INP_BASE does not exist!\n" > ${flag}.err
+		fi
+done
