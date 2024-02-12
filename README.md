@@ -307,7 +307,7 @@ INP_BASE=/cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/MiXeR
       # Standard commands to run PRSice2
 			Rscript /cluster/projects/p697/users/nadinepa/Tools/PRSice_linux/PRSice.R \
 				--prsice /cluster/projects/p697/users/nadinepa/Tools/PRSice_linux/PRSice_linux \
-				--dir /cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/gwas_prs \
+				--dir /cluster/projects/p697/users/nadinepa/MiXeR_Pred/FINAL_MiXeR_Pred/PRS/mixer_prs \
 				--all-score \
 				--model add \
 				--no-clump \
