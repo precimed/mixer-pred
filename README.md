@@ -63,15 +63,12 @@ export APPTAINER_BIND=
 export SINGULARITY_BIND=
 export REP=${SLURM_ARRAY_TASK_ID}
 
-## NEED ALEX'S HELP!! latest GSA-MIXER no longer defines this argument
-export LOADLIB_FILE=/ess/p697/cluster/projects/moba_qc_imputation/resources/HRC/plink/tsd_libfile_hrc_chr@.bin
-
 ## No need to modify beyond this point
 ##################################
 
 export COMMON_FLAGS="${COMMON_FLAGS} --bim-file ${REFERENCE_FOLDER}/hrc_EUR_qc/hrc_chr@_EUR_qc.bim"
 export COMMON_FLAGS="${COMMON_FLAGS} --ld-file ${REFERENCE_FOLDER}/hrc_EUR_qc/hrc_chr@_EUR_qc.run1.ld"
-export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices --loadlib-file ${LOADLIB_FILE}"
+export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices
 
 export EXTRA_FLAGS_U="--exclude-ranges MHC --z1max 9.336"
 
@@ -81,7 +78,7 @@ mkdir slurm
 export SUMSTATS_FILE=$1
 
 # PLSA analysis (new MiXeR model)
-  # remember that for PLSA analysis sumstats should be split per chromosome, as follows
+  # remember that the sumstats should be split per chromosome, as follows
 ${MIXER_PY} split_sumstats --trait1-file ${SUMSTATS_FOLDER}/${SUMSTATS_FILE}.sumstats.gz --out ${SUMSTATS_FOLDER}/${SUMSTATS_FILE}.chr@.sumstats.gz
 
   echo -e '\n=== PLSA FIT0 ===========================================================================\n'
@@ -164,9 +161,6 @@ export APPTAINER_BIND=
 export SINGULARITY_BIND=
 export REP=${SLURM_ARRAY_TASK_ID}
 
-## NEED ALEX'S HELP!! latest GSA-MIXER no longer defines this argument
-export LOADLIB_FILE=/ess/p697/cluster/projects/moba_qc_imputation/resources/HRC/plink/tsd_libfile_hrc_chr@.bin
-
 ## No need to modify beyond this point
 ##################################
 
@@ -175,7 +169,7 @@ export SUMSTATS2_FILE=$2
 
 export COMMON_FLAGS="${COMMON_FLAGS} --bim-file ${REFERENCE_FOLDER}/hrc_EUR_qc/hrc_chr@_EUR_qc.bim"
 export COMMON_FLAGS="${COMMON_FLAGS} --ld-file ${REFERENCE_FOLDER}/hrc_EUR_qc/hrc_chr@_EUR_qc.run1.ld"
-export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices --loadlib-file ${LOADLIB_FILE}"
+export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices
 
 export EXTRA_FLAGS_B="--exclude-ranges MHC --z1max 9.336 --z2max 9.336"
 
@@ -216,7 +210,7 @@ The generate_mixer_pred_files.job file passes several arguments to the R script.
 * ``--target-bim`` - the bim file for the target sample
 * ``plink-dir`` - the directory containing plink binary file
 * ``--bfile`` - the path and file prefix for the reference to be used in the clumping procedure (a 1000 genomes european reference file can be downloaded from [here](https://ctg.cncr.nl/software/magma))
-* ``--snp-thresholds`` - the thresholds for top number of variants to be used in estimating the polygenic risk scores
+* ``--snp-thresholds`` - the thresholds for top number of variants (in thousands) to be used in estimating the polygenic risk scores
 
 NOTE: the ``--snps-file-prefix`` in generate_mixer_pred_files.job does not need to be modified
 
