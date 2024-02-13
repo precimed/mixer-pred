@@ -36,7 +36,7 @@ export LOADLIB_FILE=/ess/p697/cluster/projects/moba_qc_imputation/resources/HRC/
 
 export COMMON_FLAGS="${COMMON_FLAGS} --bim-file ${REFERENCE_FOLDER}/hrc_EUR_qc/hrc_chr@_EUR_qc.bim"
 export COMMON_FLAGS="${COMMON_FLAGS} --ld-file ${REFERENCE_FOLDER}/hrc_EUR_qc/hrc_chr@_EUR_qc.run1.ld"
-export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices --loadlib-file ${LOADLIB_FILE}"
+export COMMON_FLAGS="${COMMON_FLAGS} --use-complete-tag-indices
 
 export EXTRA_FLAGS_U="--exclude-ranges MHC --z1max 9.336"
 
