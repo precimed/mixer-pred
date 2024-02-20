@@ -1,6 +1,8 @@
 # MiXeR-Pred
 MiXeR-Pred is a novel tool for polygenic prediction that builds on an established [MiXeR](https://www.nature.com/articles/s41467-019-10310-0) framework to source genetic overlap with a secondary phenotype to inform polygenic prediction of a primary phenotype. MiXeR-Pred extends previous bivariate MiXeR models to include the functional annotations modelled in our new tool [GSA-MiXeR](https://www.medrxiv.org/content/10.1101/2022.12.08.22283159v1).
 
+Our preprint presenting MiXeR-Pred can be found here: https://www.medrxiv.org/content/10.1101/2024.02.19.24303039v1. We ask that you please cite this paper when using our tool.
+
 # Getting Started
 ## Step 1: Install GSA-MiXeR
 MiXeR-Pred relies on estimates derived from our GSA-MiXeR tool. Please follow the download and installation instructions [here](https://github.com/precimed/gsa-mixer).
