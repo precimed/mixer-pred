@@ -100,7 +100,7 @@ process_files <- lapply(trait_files, function(file){
     mutate(Ed2tms2=posteriordeltaC02/posteriordeltaC00) %>% # E(delta2^2 | z1, z2) = C02/C00
     mutate(expEd2=exp(-1*Ed2tms2))%>% #
     
-    # select necessary variables -- Ask Alex which are necessary...
+    # select necessary variables
     select(c(RSID,CHR,POS,A1,A2,Ed1,Ed2,expEd1,expEd2))
    
 })
