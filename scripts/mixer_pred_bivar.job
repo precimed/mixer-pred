@@ -40,7 +40,7 @@ export APPTAINER_BIND=
 export SINGULARITY_BIND=
 export REP=${SLURM_ARRAY_TASK_ID}
 
-## NEED ALEX'S HELP!! latest GSA-MIXER no longer defines this argument
+## define path to lib files
 export LOADLIB_FILE=/ess/p697/cluster/projects/moba_qc_imputation/resources/HRC/plink/tsd_libfile_hrc_chr@.bin
 
 ## No need to modify beyond this point
